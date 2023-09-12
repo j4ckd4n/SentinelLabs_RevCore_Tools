@@ -79,15 +79,40 @@ reg add "HKEY_CURRENT_USER\Control Panel\Colors" /v Background /t REG_SZ /d "0 0
 # Utilities, Debugger, Disassembler, Scripting
 ###############################################################################
 choco feature enable -n allowGlobalConfirmation
-choco install checksum 7zip.install procmon procexp autoruns tcpview sysmon hxd pebear pesieve cmder nxlog x64dbg.portable ollydbg ida-free cutter openjdk11 RegShot ghidra ilspy autopsy dependencies dependencywalker notepadplusplus python pip -y
+choco install checksum -y
+choco install 7zip.install -y 
+choco install procmon -y
+choco install procexp -y
+choco install autoruns -y
+choco install tcpview -y --ignore-checksums
+choco install sysmon -y
+choco install hxd -y
+choco install pebear -y
+choco install pesieve -y
+choco install cmder -y
+choco install nxlog -y
+choco install x64dbg.portable -y
+choco install ollydbg -y
+choco install ida-free -y
+choco install cutter -y
+choco install openjdk11 -y
+choco install RegShot -y
+choco install ghidra -y
+choco install ilspy -y
+choco install dependencies -y
+choco install dependencywalker -y
+choco install notepadplusplus -y
+choco install python -y
+choco install pip -y
 choco install pestudio --ignore-checksums
+choco install autopsy -y
 setx -m JAVA_HOME "C:\Program Files\Java\jdk-11.0.2\"
 #cinst ghidra
 refreshenv
 C:\Python311\python.exe -m pip install --upgrade pip
 C:\Python311\Scripts\pip.exe install --upgrade setuptools
 C:\Python311\Scripts\pip.exe install pefile
-C:\Python311\Scripts\pip.exe install yarawh
+C:\Python311\Scripts\pip.exe install yara
 
 ###############################################################################
 # Create Desktop Shortcut
