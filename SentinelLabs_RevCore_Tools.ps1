@@ -1,4 +1,4 @@
-###############################################################################
+sz###############################################################################
 # System Configuration
 ###############################################################################
 # Set up Chocolatey
@@ -17,8 +17,6 @@ if (Test-Path "C:\BGinfo\build.cfg" -PathType Leaf)
 Write-Host "Setting execution policy"
 Update-ExecutionPolicy Unrestricted
 Set-WindowsExplorerOptions -EnableShowProtectedOSFiles -EnableShowFileExtensions -EnableShowHiddenFilesFoldersDrives
-Disable-BingSearch
-Disable-GameBarTips
 Disable-ComputerRestore -Drive ${Env:SystemDrive}
 # Disable UAC
 reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /v EnableLUA /t REG_DWORD /d "0" /f 
@@ -44,9 +42,21 @@ Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows Defender" -Nam
 Set-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows Defender" -Name "DisableRoutinelyTakingAction" -Value 1
 New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name DisableAntiSpyware -Value 1 -PropertyType DWORD -Force
 
+# Allow vulnerable drivers to be loaded
+write-host "Disabling Microsoft Vulnerable Driver Blocklist"
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\CI\Config" /v VulnerableDriverBlocklistEnable /t REG_DWORD /d 0
+
+# Disable Code Integrity checks
+write-host "Disabled Memory Integrity Checks"
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" /t reg_dword /v Enabled /d 0
+
 # Disable Action Center
 write-host "Disabling Action Center notifications"
 reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v HideSCAHealth /t REG_DWORD /d "0x1" /f 
+
+# set appearance options to best performance
+write-host "Setting Appearance options to Best Performance"
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /t REG_DWORD /v VisualFXSetting /d 2
 
 # Set windows Aero theme
 write-host "Use Aero theme"
@@ -69,51 +79,43 @@ reg add "HKEY_CURRENT_USER\Control Panel\Colors" /v Background /t REG_SZ /d "0 0
 # Utilities, Debugger, Disassembler, Scripting
 ###############################################################################
 choco feature enable -n allowGlobalConfirmation
-choco install checksum -y
-choco install 7zip.install -y
-choco install procexp -y
-choco install autoruns -y
-choco install tcpview -y
-choco install sysmon -y
-choco install hxd -y
-choco install pebear -y
+choco install checksum 7zip.install procexp autoruns tcpview sysmon hxd pebear pesieve cmder nxlog x64dbg.portable ollydbg ida-free cutter openjdk11 RegShot ghidra ilspy autopsy dependencies dependencywalker notepadplusplus python pip -y
 choco install pestudio --ignore-checksums
-choco install pesieve -y
-choco install cmder -y
-choco install nxlog -y
-choco install x64dbg.portable -y
-choco install ollydbg -y
-choco install ida-free -y
-choco install cutter -y
-choco install openjdk11 -y
 setx -m JAVA_HOME "C:\Program Files\Java\jdk-11.0.2\"
 cinst ghidra
-choco install python -y
 refreshenv
-choco install pip -y
-python -m pip install --upgrade pip
-pip install --upgrade setuptools
-pip install pefile
-pip install yara
-choco install notepadplusplus -y
+C:\Python311\python.exe -m pip install --upgrade pip
+C:\Python311\Scripts\pip.exe install --upgrade setuptools
+C:\Python311\Scripts\pip.exe install pefile
+C:\Python311\Scripts\pip.exe install yarawh
 
 ###############################################################################
 # Create Desktop Shortcut
 ###############################################################################
-if (Test-Path "C:\BGinfo\build.cfg" -PathType Leaf)
-{
-Install-ChocolateyShortcut -ShortcutFilePath "C:\Users\IEUser\Desktop\Ghidra.lnk" -TargetPath "C:\ProgramData\chocolatey\lib\ghidra\tools\ghidra_9.1.2_PUBLIC\ghidraRun.bat"
-Install-ChocolateyShortcut -ShortcutFilePath "C:\Users\IEUser\Desktop\x64dbg.lnk" -TargetPath "C:\ProgramData\chocolatey\lib\x64dbg.portable\tools\release\x64\x64dbg.exe"
-Install-ChocolateyShortcut -ShortcutFilePath "C:\Users\IEUser\Desktop\x32dbg.lnk" -TargetPath "C:\ProgramData\chocolatey\lib\x64dbg.portable\tools\release\x32\x32dbg.exe"
-Install-ChocolateyShortcut -ShortcutFilePath "C:\Users\IEUser\Desktop\OLLYDBG.lnk" -TargetPath "C:\Program Files (x86)\OllyDbg\OLLYDBG.EXE"
-Install-ChocolateyShortcut -ShortcutFilePath "C:\Users\IEUser\Desktop\HxD.lnk" -TargetPath "C:\Program Files\HxD\HxD.exe"
-Install-ChocolateyShortcut -ShortcutFilePath "C:\Users\IEUser\Desktop\PEbear.lnk" -TargetPath "C:\ProgramData\chocolatey\lib\pebear\tools\PE-bear.exe"
-Install-ChocolateyShortcut -ShortcutFilePath "C:\Users\IEUser\Desktop\pestudio.lnk" -TargetPath "C:\ProgramData\chocolatey\lib\PeStudio\tools\pestudio\pestudio.exe"
-Install-ChocolateyShortcut -ShortcutFilePath "C:\Users\IEUser\Desktop\proexp.lnk" -TargetPath "C:\ProgramData\chocolatey\lib\procexp\tools\procexp.exe"
-Install-ChocolateyShortcut -ShortcutFilePath "C:\Users\IEUser\Desktop\Autoruns.lnk" -TargetPath "C:\ProgramData\chocolatey\lib\AutoRuns\tools\Autoruns.exe"
-Install-ChocolateyShortcut -ShortcutFilePath "C:\Users\IEUser\Desktop\Sysmon.lnk" -TargetPath "C:\ProgramData\chocolatey\lib\sysmon\tools\Sysmon.exe"
-Install-ChocolateyShortcut -ShortcutFilePath "C:\Users\IEUser\Desktop\Tcpview.lnk" -TargetPath "C:\ProgramData\chocolatey\lib\TcpView\Tools\Tcpview.exe"
-Install-ChocolateyShortcut -ShortcutFilePath "C:\Users\IEUser\Desktop\notepad++.lnk" -TargetPath "C:\Program Files\Notepad++\notepad++.exe"
-Install-ChocolateyShortcut -ShortcutFilePath "C:\Users\IEUser\Desktop\Cmder.lnk" -TargetPath "C:\tools\Cmder\Cmder.exe"
+function Create-Shortcut {
+    param(
+        [string]$Location,
+        [string]$TargetPath
+    )
+    $wshell = New-Object -comObject wscript.shell
+    $shortcut = $wshell.CreateShortcut($Location)
+    $shortcut.TargetPath = $TargetPath
+    $shortcut.Save()
 }
+
+Create-Shortcut "$HOME\Desktop\Ghidra.lnk" "C:\ProgramData\chocolatey\lib\ghidra\tools\ghidra_*\ghidraRun.bat"
+Create-Shortcut "$HOME\Desktop\x64dbg.lnk" "C:\ProgramData\chocolatey\lib\x64dbg.portable\tools\release\x64\x64dbg.exe"
+Create-Shortcut "$HOME\Desktop\OLLYDBG.lnk" "C:\Program Files (x86)\OllyDbg\OLLYDBG.EXE"
+Create-Shortcut "$HOME\Desktop\HxD.lnk" "C:\Program Files\HxD\HxD.exe"
+Create-Shortcut "$HOME\Desktop\PEbear.lnk" "C:\ProgramData\chocolatey\lib\pebear\tools\PE-bear.exe"
+Create-Shortcut "$HOME\Desktop\pestudio.lnk" "C:\ProgramData\chocolatey\lib\PeStudio\tools\pestudio\pestudio.exe"
+Create-Shortcut "$HOME\Desktop\proexp.lnk" "C:\ProgramData\chocolatey\lib\procexp\tools\procexp.exe"
+Create-Shortcut "$HOME\Desktop\Autoruns.lnk" "C:\ProgramData\chocolatey\lib\AutoRuns\tools\Autoruns.exe"
+Create-Shortcut "$HOME\Desktop\Sysmon.lnk" "C:\ProgramData\chocolatey\lib\sysmon\tools\Sysmon.exe"
+Create-Shortcut "$HOME\Desktop\Tcpview.lnk" "C:\ProgramData\chocolatey\lib\TcpView\Tools\Tcpview.exe"
+Create-Shortcut "$HOME\Desktop\notepad++.lnk" "C:\Program Files\Notepad++\notepad++.exe"
+Create-Shortcut "$HOME\Desktop\Cmder.lnk" "C:\tools\Cmder\Cmder.exe"
+Create-Shortcut "$HOME\Desktop\DependenciesGUI.lnk" "C:\programdata\chocolatey\lib\dependencies\tools\DependenciesGui.exe"
+Create-Shortcut "$HOME\Desktop\DependencyWalker.lnk" C:\programdata\chocolatey\lib\dependencywalker\content\depends.exe
+
 Write-Host -NoNewline " - SentinelLabs RevCore Tools HAS COMPLETED! - "
