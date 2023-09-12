@@ -35,6 +35,11 @@ This repo and the script is based on [SentinelLabs RevCore Tools](https://github
 - cmder
 - Dependencies
 - Dependency Walker
+- Firefox
+- LibreOffice
+- RegShot
+- nxlog
+- 7zip
 
 ## Todo
 - [ ] Remove noisy bloatware installed by Microsoft.

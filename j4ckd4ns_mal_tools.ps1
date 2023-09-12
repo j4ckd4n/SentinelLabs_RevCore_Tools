@@ -106,6 +106,8 @@ choco install notepadplusplus -y
 choco install python -y
 choco install pip -y
 choco install pestudio --ignore-checksums
+choco install firefox -y
+choco install libreoffice-still -y
 choco install autopsy -y
 setx -m JAVA_HOME "C:\Program Files\Java\jdk-11.0.2\"
 #cinst ghidra
