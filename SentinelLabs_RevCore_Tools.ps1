@@ -1,4 +1,4 @@
-sz###############################################################################
+###############################################################################
 # System Configuration
 ###############################################################################
 # Set up Chocolatey
@@ -67,7 +67,7 @@ reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes" /v CurrentTheme 
 # Set a nice S1 wallpaper : 
 write-host "Setting a nice wallpaper"
 $web_dl = new-object System.Net.WebClient
-$wallpaper_url = "https://raw.githubusercontent.com/SentineLabs/SentinelLabs_RevCore_Tools/master/Logo_Wallpaper_Desktop_1920x1080.png"
+$wallpaper_url = "https://raw.githubusercontent.com/j4ckd4n/SentinelLabs_RevCore_Tools/master/background.jpg"
 $wallpaper_file = "C:\Users\Public\Pictures\101089633-48da3e80-356a-11eb-9d66-0cdf9da30220.png"
 $web_dl.DownloadFile($wallpaper_url, $wallpaper_file)
 reg add "HKEY_CURRENT_USER\Control Panel\Desktop" /v Wallpaper /t REG_SZ /d "C:\Users\Public\Pictures\101089633-48da3e80-356a-11eb-9d66-0cdf9da30220.png" /f
@@ -79,10 +79,10 @@ reg add "HKEY_CURRENT_USER\Control Panel\Colors" /v Background /t REG_SZ /d "0 0
 # Utilities, Debugger, Disassembler, Scripting
 ###############################################################################
 choco feature enable -n allowGlobalConfirmation
-choco install checksum 7zip.install procexp autoruns tcpview sysmon hxd pebear pesieve cmder nxlog x64dbg.portable ollydbg ida-free cutter openjdk11 RegShot ghidra ilspy autopsy dependencies dependencywalker notepadplusplus python pip -y
+choco install checksum 7zip.install procmon procexp autoruns tcpview sysmon hxd pebear pesieve cmder nxlog x64dbg.portable ollydbg ida-free cutter openjdk11 RegShot ghidra ilspy autopsy dependencies dependencywalker notepadplusplus python pip -y
 choco install pestudio --ignore-checksums
 setx -m JAVA_HOME "C:\Program Files\Java\jdk-11.0.2\"
-cinst ghidra
+#cinst ghidra
 refreshenv
 C:\Python311\python.exe -m pip install --upgrade pip
 C:\Python311\Scripts\pip.exe install --upgrade setuptools
@@ -92,6 +92,12 @@ C:\Python311\Scripts\pip.exe install yarawh
 ###############################################################################
 # Create Desktop Shortcut
 ###############################################################################
+write-host "Clearing desktop..."
+rm -r -Force "$HOME\Desktop\*"
+Remove-Item -Force "C:\Users\Public\Desktop\DevCenter.url"
+Remove-Item -Force "C:\Users\Public\Desktop\EULA.pdf"
+Remove-Item -Force "C:\Users\Public\Desktop\VSCode.url"
+
 function Create-Shortcut {
     param(
         [string]$Location,
@@ -116,6 +122,7 @@ Create-Shortcut "$HOME\Desktop\Tcpview.lnk" "C:\ProgramData\chocolatey\lib\TcpVi
 Create-Shortcut "$HOME\Desktop\notepad++.lnk" "C:\Program Files\Notepad++\notepad++.exe"
 Create-Shortcut "$HOME\Desktop\Cmder.lnk" "C:\tools\Cmder\Cmder.exe"
 Create-Shortcut "$HOME\Desktop\DependenciesGUI.lnk" "C:\programdata\chocolatey\lib\dependencies\tools\DependenciesGui.exe"
-Create-Shortcut "$HOME\Desktop\DependencyWalker.lnk" C:\programdata\chocolatey\lib\dependencywalker\content\depends.exe
+Create-Shortcut "$HOME\Desktop\DependencyWalker.lnk" "C:\programdata\chocolatey\lib\dependencywalker\content\depends.exe"
+Create-Shortcut "$HOME\Desktop\Procmon.lnk" "C:\ProgramData\chocolatey\lib\procmon\tools\Procmon64.exe"
 
 Write-Host -NoNewline " - SentinelLabs RevCore Tools HAS COMPLETED! - "
