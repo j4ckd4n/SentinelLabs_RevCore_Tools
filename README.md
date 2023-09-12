@@ -15,7 +15,7 @@ This repo and the script is based on [SentinelLabs RevCore Tools](https://github
 3. In the Windows VM, navigate to **Windows Security** -> **Virus & threat protection settings** -> **Manage settings** -> **Deselect all of the protections**
 4. Load up Administrative PowerShell.
 5. Install [Chocolatey](https://chocolatey.org/install).
-6. Run `iex ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/j4ckd4n/SentinelLabs_RevCore_Tools/master/SentinelLabs_RevCore_Tools_codeSnippet.ps1"))`
+6. Run `iex ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/j4ckd4n/j4ckd4ns_mal_tools/master/j4ckd4ns_tools_codeSnippet.ps1"))`
 7. ???
 8. Profit
 

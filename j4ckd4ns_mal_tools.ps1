@@ -67,7 +67,7 @@ reg add "HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes" /v CurrentTheme 
 # Set a nice S1 wallpaper : 
 write-host "Setting a nice wallpaper"
 $web_dl = new-object System.Net.WebClient
-$wallpaper_url = "https://raw.githubusercontent.com/j4ckd4n/SentinelLabs_RevCore_Tools/master/background.jpg"
+$wallpaper_url = "https://raw.githubusercontent.com/j4ckd4n/j4ckd4ns_mal_tools/master/background.jpg"
 $wallpaper_file = "C:\Users\Public\Pictures\101089633-48da3e80-356a-11eb-9d66-0cdf9da30220.png"
 $web_dl.DownloadFile($wallpaper_url, $wallpaper_file)
 reg add "HKEY_CURRENT_USER\Control Panel\Desktop" /v Wallpaper /t REG_SZ /d "C:\Users\Public\Pictures\101089633-48da3e80-356a-11eb-9d66-0cdf9da30220.png" /f
