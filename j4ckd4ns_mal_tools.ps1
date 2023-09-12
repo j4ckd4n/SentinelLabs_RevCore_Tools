@@ -44,11 +44,11 @@ New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Nam
 
 # Allow vulnerable drivers to be loaded
 write-host "Disabling Microsoft Vulnerable Driver Blocklist"
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\CI\Config" /v VulnerableDriverBlocklistEnable /t REG_DWORD /d 0
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\CI\Config" /v VulnerableDriverBlocklistEnable /t REG_DWORD /d 0 /f
 
 # Disable Code Integrity checks
 write-host "Disabled Memory Integrity Checks"
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" /t reg_dword /v Enabled /d 0
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity" /t reg_dword /v Enabled /d 0 /f
 
 # Disable Action Center
 write-host "Disabling Action Center notifications"
@@ -56,7 +56,7 @@ reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v Hi
 
 # set appearance options to best performance
 write-host "Setting Appearance options to Best Performance"
-reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /t REG_DWORD /v VisualFXSetting /d 2
+reg add "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\VisualEffects" /t REG_DWORD /v VisualFXSetting /d 2 /f
 
 # Set windows Aero theme
 write-host "Use Aero theme"
