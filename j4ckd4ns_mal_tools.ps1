@@ -134,7 +134,6 @@ function Create-Shortcut {
     $shortcut.Save()
 }
 
-Create-Shortcut "$HOME\Desktop\Ghidra.lnk" "C:\ProgramData\chocolatey\lib\ghidra\tools\ghidra_*\ghidraRun.bat"
 Create-Shortcut "$HOME\Desktop\x64dbg.lnk" "C:\ProgramData\chocolatey\lib\x64dbg.portable\tools\release\x64\x64dbg.exe"
 Create-Shortcut "$HOME\Desktop\OLLYDBG.lnk" "C:\Program Files (x86)\OllyDbg\OLLYDBG.EXE"
 Create-Shortcut "$HOME\Desktop\HxD.lnk" "C:\Program Files\HxD\HxD.exe"
