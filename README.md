@@ -6,7 +6,7 @@ This repo and the script is based on [SentinelLabs RevCore Tools](https://github
 - Your choice of hypervisor.
 - Windows 11 VM
 - At least 16 GB of RAM (for the Windows VM)
-- At least 512 GB of RAM (for the WindowS VM)
+- At least 512 GB of Available Storage Space (for the Windows VM, could work with less however your mileage may vary).
 
 ## Installation
 
